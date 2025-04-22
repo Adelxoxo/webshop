@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+.order-status-APPROVED {
+  @apply border-l-green-300;
+}
+
+.order-status-DENIED {
+  @apply border-l-red-300;
+}
+
+.order-status-DELIVERED {
+  @apply border-l-blue-300;
+}
+
+.status-badge-APPROVED {
+  @apply bg-green-500;
+}
+.status-badge-DENIED{
+  @apply bg-red-500;
+}
+.status-badge-DELIVERED {
+  @apply bg-blue-500;
+}
