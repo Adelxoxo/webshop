@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 .order-status-APPROVED {
-  @apply border-l-green-300;
+  @apply border-l-green-500;
 }
 
 .order-status-DENIED {
-  @apply border-l-red-300;
+  @apply border-l-red-500;
 }
 
 .order-status-DELIVERED {

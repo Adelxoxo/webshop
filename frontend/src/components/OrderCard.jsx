@@ -48,6 +48,10 @@ function OrderCard({ order, isSelected, onCheckboxChange }) {
                 <span className="col-span-2">{order.name}</span>
               </p>
               <p className="grid grid-cols-3">
+                <span className="font-medium text-gray-500">Email:</span>
+                <span className="col-span-2">{order.email}</span>
+              </p>
+              <p className="grid grid-cols-3">
                 <span className="font-medium text-gray-500">Address:</span>
                 <span className="col-span-2">{order.address}</span>
               </p>
@@ -107,10 +111,10 @@ function OrderCard({ order, isSelected, onCheckboxChange }) {
                         {item.quantity}
                       </td>
                       <td className="py-2 px-4 text-sm text-gray-900 text-right">
-                        ${parseFloat(item.price).toFixed(2)}
+                        {parseFloat(item.price).toFixed(2)} KM
                       </td>
                       <td className="py-2 px-4 text-sm text-gray-900 text-right">
-                        ${(item.price * item.quantity).toFixed(2)}
+                        {(item.price * item.quantity).toFixed(2)} KM
                       </td>
                     </tr>
                   ))}
@@ -122,7 +126,7 @@ function OrderCard({ order, isSelected, onCheckboxChange }) {
                       Total
                     </td>
                     <td className="py-2 px-4 text-sm font-bold text-gray-900 text-right">
-                      ${parseFloat(order.totalAmount).toFixed(2)}
+                      {parseFloat(order.totalAmount).toFixed(2)} KM
                     </td>
                   </tr>
                 </tbody>

@@ -31,7 +31,7 @@ function CatalogManagement({ products, setProducts, onEditClick }) {
                     </span>
                   </div>
                   <p className="text-gray-600 text-sm mb-2">
-                    ${parseFloat(product.price).toFixed(2)}
+                    {parseFloat(product.price).toFixed(2)} KM
                   </p>
                   <p className="text-gray-500 text-sm line-clamp-2">
                     {product.description}

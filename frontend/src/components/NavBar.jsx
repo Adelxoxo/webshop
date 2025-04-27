@@ -45,7 +45,6 @@ function NavBar() {
       <div className="flex justify-between items-center">
         {/* Left side navigation links */}
         <ul className="flex space-x-4">
-          <li className="hover:opacity-70 hover:duration-200"><Link to="/">Home</Link></li>
           <li className="hover:opacity-70 hover:duration-200"><Link to="/catalog">Catalog</Link></li>
           {userType === "ADMIN" && <li className="hover:opacity-70 hover:duration-200"><Link to="/admin">Admin</Link></li>}
         </ul>

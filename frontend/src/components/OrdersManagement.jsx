@@ -62,6 +62,19 @@ function OrdersManagement({ orders, setOrders, selectedOrders, setSelectedOrders
     }
   };
 
+  const getStatusBadgeClasses = (status) => {
+    switch (status) {
+      case "APPROVED":
+        return "bg-green-500";
+      case "DENIED":
+        return "bg-red-500";
+      case "DRAFT":
+        return "bg-yellow-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
   return (
     <div>
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
@@ -132,7 +145,7 @@ function OrdersManagement({ orders, setOrders, selectedOrders, setSelectedOrders
                         <div className="flex justify-between items-start mb-4">
                           <h3 className="font-bold text-lg">Order Information</h3>
                           <span
-                            className={`text-white text-xs font-medium px-2.5 py-0.5 rounded ${getOrderBorderColor(
+                            className={`text-white text-xs font-medium px-2.5 py-0.5 rounded ${getStatusBadgeClasses(
                               order.status
                             )}`}
                           >
@@ -151,6 +164,10 @@ function OrdersManagement({ orders, setOrders, selectedOrders, setSelectedOrders
                           <p className="grid grid-cols-3">
                             <span className="font-medium text-gray-500">Customer:</span>
                             <span className="col-span-2">{order.name}</span>
+                          </p>
+                          <p className="grid grid-cols-3">
+                            <span className="font-medium text-gray-500">Email:</span>
+                            <span className="col-span-2">{order.email || "N/A"}</span>
                           </p>
                           <p className="grid grid-cols-3">
                             <span className="font-medium text-gray-500">Address:</span>
@@ -200,10 +217,10 @@ function OrdersManagement({ orders, setOrders, selectedOrders, setSelectedOrders
                                     {item.quantity}
                                   </td>
                                   <td className="py-2 px-4 text-sm text-gray-900 text-right">
-                                    ${parseFloat(item.price).toFixed(2)}
+                                    {parseFloat(item.price).toFixed(2)} KM
                                   </td>
                                   <td className="py-2 px-4 text-sm text-gray-900 text-right">
-                                    ${(item.price * item.quantity).toFixed(2)}
+                                    {(item.price * item.quantity).toFixed(2)} KM
                                   </td>
                                 </tr>
                               ))}
@@ -215,7 +232,7 @@ function OrdersManagement({ orders, setOrders, selectedOrders, setSelectedOrders
                                   Total
                                 </td>
                                 <td className="py-2 px-4 text-sm font-bold text-gray-900 text-right">
-                                  ${parseFloat(order.totalAmount).toFixed(2)}
+                                  {parseFloat(order.totalAmount).toFixed(2)} KM
                                 </td>
                               </tr>
                             </tbody>

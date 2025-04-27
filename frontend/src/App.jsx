@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import Cart from "./pages/Cart";
 import Admin from "./pages/Admin";
@@ -9,6 +8,7 @@ import Item from "./pages/Item";
 import CheckoutModal from "./components/CheckoutModal";
 import Login from "./pages/Login";
 import { Logout } from "./pages/Logout";
+import Register from "./pages/Register";
 
 function App() {
   const [cart, setCart] = useState(() => {
@@ -20,7 +20,7 @@ function App() {
         }))
       : [];
   });
-  
+
   const [orderRequests, setOrderRequests] = useState([]);
   const [products, setProducts] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -28,11 +28,13 @@ function App() {
   // Update localStorage whenever cart changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
-    
+
     // Dispatch event to notify other components of cart update
-    window.dispatchEvent(new CustomEvent('cartUpdated', { 
-      detail: { count: cart.length } 
-    }));
+    window.dispatchEvent(
+      new CustomEvent("cartUpdated", {
+        detail: { count: cart.length },
+      })
+    );
   }, [cart]);
 
   const clearCart = () => {
@@ -47,7 +49,7 @@ function App() {
       const existingItemIndex = prevCart.findIndex(
         (item) => Number(item.id) === Number(product.id) // Ensure id is compared as a number
       );
-  
+
       if (existingItemIndex >= 0) {
         // If item exists, increase quantity
         const updatedCart = [...prevCart];
@@ -69,9 +71,13 @@ function App() {
       <NavBar />
       <div className="p-4">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={<Catalog cart={cart} setCart={setCart} addToCart={addToCart} />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/catalog"
             element={<Catalog cart={cart} setCart={setCart} addToCart={addToCart} />}

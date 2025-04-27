@@ -80,7 +80,7 @@ function Item({ cart, setCart }) {
           />
         </div>
         <div className="flex-1">
-          <p className="text-lg font-semibold">Price: ${product.price}</p>
+          <p className="text-lg font-semibold">Price: {product.price} KM</p>
           <p className="text-gray-600 mt-2">{product.description}</p>
           {product.speed && (
             <p className="text-gray-600 mt-2">

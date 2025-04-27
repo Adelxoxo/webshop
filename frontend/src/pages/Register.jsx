@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
-  });
+function Register() {
+  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setCredentials((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -20,35 +18,18 @@ function Login() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        }
-      );
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       if (!response.ok) {
         const errData = await response.json();
-        throw new Error(errData.message || "Login failed");
+        throw new Error(errData.message || "Registration failed");
       }
 
-      const data = await response.json();
-      // Save token and any user details (if needed) in localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("username", data.username);
-      localStorage.setItem("userType", data.type);
-      window.dispatchEvent(new Event("storage"));
-
-      // Navigate to the admin panel or home page based on user type
-      if (data.type === "ADMIN") {
-        navigate("/admin");
-      } else {
-        navigate("/");
-      }
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -59,7 +40,7 @@ function Login() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-sm p-6">
-        <h1 className="text-2xl font-bold mb-6 text-center">Login to Your Account</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Create an Account</h1>
         
         {error && (
           <div className="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-md">
@@ -73,7 +54,7 @@ function Login() {
             <input
               type="text"
               name="username"
-              value={credentials.username}
+              value={formData.username}
               onChange={handleChange}
               required
               className="p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-slate-700"
@@ -82,15 +63,28 @@ function Login() {
           </div>
           
           <div>
+            <label className="block font-bold mb-1 text-gray-700">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-slate-700"
+              placeholder="Enter your email address"
+            />
+          </div>
+          
+          <div>
             <label className="block font-bold mb-1 text-gray-700">Password</label>
             <input
               type="password"
               name="password"
-              value={credentials.password}
+              value={formData.password}
               onChange={handleChange}
               required
               className="p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:border-slate-700"
-              placeholder="Enter your password"
+              placeholder="Create a password"
             />
           </div>
           
@@ -102,15 +96,15 @@ function Login() {
                 isSubmitting ? "bg-green-600 animate-pulse" : "bg-slate-700 hover:bg-slate-800"
               } transition-colors`}
             >
-              {isSubmitting ? "Logging in..." : "Login"}
+              {isSubmitting ? "Processing..." : "Register"}
             </button>
           </div>
           
           <div className="text-center mt-4">
             <p className="text-gray-600">
-              Don&apos;t have an account?{" "}
-              <a href="/register" className="text-slate-700 hover:underline font-medium">
-                Register here
+              Already have an account?{" "}
+              <a href="/login" className="text-slate-700 hover:underline font-medium">
+                Login here
               </a>
             </p>
           </div>
@@ -120,4 +114,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

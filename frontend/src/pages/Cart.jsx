@@ -108,7 +108,7 @@ function Cart({ cart, setCart, onCheckout }) {
                       
                       {/* Price */}
                       <div className="col-span-2 text-center">
-                        ${parseFloat(item.price).toFixed(2)}
+                        {parseFloat(item.price).toFixed(2)} KM
                       </div>
                       
                       {/* Quantity */}
@@ -134,7 +134,7 @@ function Cart({ cart, setCart, onCheckout }) {
                       <div className="col-span-2">
                         <div className="flex flex-col items-center space-y-2">
                           <span className="font-medium">
-                            ${(item.price * item.quantity).toFixed(2)}
+                            {(item.price * item.quantity).toFixed(2)} KM
                           </span>
                           <button
                             onClick={() => handleRemoveItem(item.id)}
@@ -159,7 +159,7 @@ function Cart({ cart, setCart, onCheckout }) {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
-                  <span>${total.toFixed(2)}</span>
+                  <span>{total.toFixed(2)} KM</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
@@ -168,7 +168,7 @@ function Cart({ cart, setCart, onCheckout }) {
                 <div className="border-t border-gray-200 pt-3 mt-3">
                   <div className="flex justify-between font-bold">
                     <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>{total.toFixed(2)} KM</span>
                   </div>
                 </div>
               </div>

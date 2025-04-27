@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 function Collapsible({ title, children }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,5 +20,9 @@ function Collapsible({ title, children }) {
     </div>
   );
 }
+Collapsible.propTypes = {
+  title: PropTypes.node.isRequired, // Accepts JSX elements or strings
+  children: PropTypes.node,
+};
 
 export default Collapsible;
