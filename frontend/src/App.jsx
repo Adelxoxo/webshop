@@ -29,7 +29,8 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // Dispatch event to notify other components of cart update
+    // Dispatch event to update navbar cart count
+    // This event can be listened to in NavBar for updating the cart count
     window.dispatchEvent(
       new CustomEvent("cartUpdated", {
         detail: { count: cart.length },
